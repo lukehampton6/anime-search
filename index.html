@@ -4,9 +4,47 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css"
+    />
     <title>Anime Search</title>
   </head>
-  <body>
-    <h1>Hello World!</h1>
+  <body class="has-background-link-light">
+    <nav
+      class="navbar has-background-link-dark p-4"
+      aria-label="main navigation"
+    >
+      <div class="navbar-brand">
+        <h1 class="title is-2 has-text-light">
+          Anime<span class="has-text-primary">Search</span>
+        </h1>
+      </div>
+    </nav>
+
+    <div class="columns is-flex is-justify-content-center">
+    <div class="box column is-half has-background-primary-light">
+      <div class="card-content is-flex is-flex-direction-column is-align-items-center">
+
+        <label class="label has-text-link">Title of Show</label>
+        <input class="input is-link" type="text" placeholder="Show Title"/>
+
+        <label class="label has-text-link">Genre</label>
+        <div class="select is-link">
+          <select>
+            <option></option>
+            <option>Action</option>
+            <option>Comedy</option>
+            <option>Horror</option>
+          </select>
+        </div>
+
+        <button class="button is-link mt-5">Enter</button>     
+
+      </div>
+
+    </div>
+  </div>
+
   </body>
 </html>
