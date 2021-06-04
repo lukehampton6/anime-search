@@ -10,6 +10,7 @@ var animeNameSearch = function(event) {
     
     if(animeName) {
         getAnime(animeName);
+        //user input value should reset to blank after anime is appended to the page
         userInput.value = "";
     } else {
         return;
