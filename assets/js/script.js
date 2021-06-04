@@ -13,6 +13,7 @@ var animeNameSearch = function(event) {
         return;
     }
 }
+
 var displayAnime = function(animesearch) {
     userInput.textContent=""
     if(animesearch.length === 0) {
@@ -25,6 +26,7 @@ var displayAnime = function(animesearch) {
 
 
 }
+
 var getAnime = function(anime) {
     fetch(apiUrl)
     .then(function(response){
@@ -35,4 +37,5 @@ var getAnime = function(anime) {
         }
     })
 }
+
 enterBtn.addEventListener("submit", animeNameSearch())
