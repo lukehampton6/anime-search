@@ -1,20 +1,19 @@
 var enterBtn = document.querySelector(".button")
-var userInput = document.querySelector(".input")
+var userInput = '';
 var apiUrl = "https://api.jikan.moe/v3/search/anime?q=naruto";
-var animeName = userInput.value.trim();
 var animeList = document.querySelector("#animeList")
 
+//when user clicks enter button, run animeNameSearch function
+enterBtn.addEventListener("click", function() {
+    animeNameSearch();
+});
 
-//anime seach function will pull user info to get anime name
-var animeNameSearch = function(event) {
-    
-    if(animeName) {
-        getAnime(animeName);
-        //user input value should reset to blank after anime is appended to the page
-        userInput.value = "";
-    } else {
-        return;
-    }
+//animeNameSearch function will store users input and run getAnime function
+var animeNameSearch = function() {
+    //set users input to variable and trim any unwanted spaces
+    userInput = document.querySelector(".input").value;
+    userInput.trim();
+    getAnime();
 }
 
 //display anime function will be for appending anime titles/pictures to new anime list div in html
@@ -34,16 +33,13 @@ var displayAnime = function(animesearch) {
 
 }
 
-//get anime function will fetch the anime names/pictures from the api
-var getAnime = function(anime) {
-    fetch(apiUrl)
+//getAnime function will fetch the anime names/pictures from the api
+var getAnime = function() {
+    fetch('https://api.jikan.moe/v3/search/anime?q='+ userInput)
     .then(function(response){
-        if(response.ok) {
-            response.json().then(function(data){
-                displayAnime(data, anime)
-            })
-        }
+        return response.json();
     })
-}
-
-enterBtn.addEventListener("submit", animeNameSearch())
+    .then(function(response) {
+        console.log(response);
+    })
+};
