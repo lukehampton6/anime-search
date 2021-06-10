@@ -54,5 +54,7 @@ var getAnime = function() {
     })
     .then(function(response) {
         console.log(response);
+        var text = document.querySelector('.text')
+        text.innerHTML += '<div class="mt-3 pl-2 box has-background-link-dark has-text-light"><p class="is-italic">'+ response[0].quote +'</p><p class="has-text-right">- '+ response[0].character +'</p></div>'
     })
 };
