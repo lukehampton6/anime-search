@@ -17,7 +17,7 @@ var animeNameSearch = function () {
   recentSearches.push(userInput);
   recentSearches.splice(5);
   localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
-  getAnime();
+  getAnime(userInput);
   searchHistory.innerHTML = "";
   displayRecentSearches();
 };
@@ -28,25 +28,24 @@ var displayRecentSearches = function () {
     searchItem.textContent = recentSearches[i];
     searchItem.setAttribute("class", "button is-primary m-4 mb-0 search-item");
     searchHistory.appendChild(searchItem);
-  }
-};
+    searchItem.addEventListener('click', clickSearchItem);
+}};
 
-// var clickSearchItem = function() {
-//     if (recentSearches == 0) {
-//       return;
-//     } else {
-//       document.querySelector('.search-item').addEventListener('click', function() {
-//         var searchItemValue = document.querySelector('.search-item').innerHTML;
-//         userInput = searchItemValue;
-//         animeNameSearch();
-//       });
-//     };
-//   };
+ var clickSearchItem = function(e) {
+     if (recentSearches == 0) {
+         console.log('test');
+       return;
+     } else {
+         var searchItemValue = e.target.innerHTML;
+         console.log(searchItemValue);
+         getAnime(searchItemValue);
+     };
+   };
 
 //getAnime function will fetch the anime names/pictures from the api
-var getAnime = function () {
-  fetch("https://api.jikan.moe/v3/search/anime?q=" + userInput)
-    .then(function (response) {
+var getAnime = function (anime) {
+  fetch("https://api.jikan.moe/v3/search/anime?q=" + anime)
+    .then(function (response, anime) {
       return response.json();
     })
     .then(function(response) {
@@ -57,7 +56,6 @@ var getAnime = function () {
         return response.json();
     })
     .then(function (response) {
-      console.log(response);
       var image = document.querySelector(".image");
       var text = document.querySelector(".text");
       image.innerHTML =
@@ -79,14 +77,13 @@ var getAnime = function () {
         response.synopsis +
         "</p>";
       return fetch(
-        "https://animechan.vercel.app/api/quotes/anime?title=" + userInput
+        "https://animechan.vercel.app/api/quotes/anime?title=" + anime
       );
     })
     .then(function (response) {
       return response.json();
     })
     .then(function (response) {
-      console.log(response);
       var text = document.querySelector(".text");
       text.innerHTML +=
         '<div class="mt-3 pl-2 box has-background-link-dark has-text-light"><p class="is-italic">' +
@@ -97,5 +94,4 @@ var getAnime = function () {
     });
 };
 
-// clickSearchItem();
 displayRecentSearches();
