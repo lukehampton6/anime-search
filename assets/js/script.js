@@ -1,7 +1,6 @@
 var enterBtn = document.querySelector(".button")
 var userInput = '';
-var apiUrl = "https://api.jikan.moe/v3/search/anime?q=naruto";
-var animeList = document.querySelector("#animeList")
+var recentSearches = JSON.parse(localStorage.getItem("recentSearches")) || [];
 
 //when user clicks enter button, run animeNameSearch function
 enterBtn.addEventListener("click", function() {
@@ -13,24 +12,21 @@ var animeNameSearch = function() {
     //set users input to variable and trim any unwanted spaces
     userInput = document.querySelector(".input").value;
     userInput.trim();
+    recentSearches.push(userInput);
+    recentSearches.splice(5);
+    localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
     getAnime();
+    displayRecentSearches();
 }
 
-//display anime function will be for appending anime titles/pictures to new anime list div in html
-var displayAnime = function(animesearch) {
-    //text content should reset to blank after enter button is clicked and anime is displayed
-    userInput.textContent=""
-    //if anime isn't able to display it should return from function and say anime not found in div
-    if(animesearch.length === 0) {
-        animeList.textContent = "no anime found"
-        return;
+var displayRecentSearches = function() {
+    for(i = 0; i < recentSearches.length; i++) {
+        var searchHistory = document.querySelector('.recent-searches');
+        var searchItem = document.createElement('button')
+        searchItem.textContent = recentSearches[i];
+        searchItem.setAttribute('class', 'button is-primary m-4 mb-0')
+        searchHistory.appendChild(searchItem);
     }
-    //beginning of for loop to list anime on page
-    for(var i = 0; i < animesearch.length; i++) {
-
-    }
-
-
 }
 
 //getAnime function will fetch the anime names/pictures from the api
@@ -58,3 +54,4 @@ var getAnime = function() {
         text.innerHTML += '<div class="mt-3 pl-2 box has-background-link-dark has-text-light"><p class="is-italic">'+ response[0].quote +'</p><p class="has-text-right">- '+ response[0].character +'</p></div>'
     })
 };
+
