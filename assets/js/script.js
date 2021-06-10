@@ -42,7 +42,7 @@ var getAnime = function() {
     .then(function(response) {
         console.log(response);
         //var test = document.querySelector('.test');
-        //test.innerHTML = response.results[0].title;
+        //test.innerHTML = response.results[0].title;6
         return fetch('https://animechan.vercel.app/api/quotes/anime?title='+ userInput)
     })
     .then(function(response) {
